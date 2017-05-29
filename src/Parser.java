@@ -3,11 +3,33 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by gyk on 5/22/2017.
  */
 public class Parser {
+    public static HashMap<HashSet<String>, HashSet<String>> parse(String filename){
+        //Round 1: parse file into recipes
+        ArrayList<Recipe> parsedRecipes = parseFile(filename);
+        //Round 2: parse ingredients list
+        HashMap<HashSet<String>, HashSet<String>> ingredients2RecipesMapping = new HashMap<>();
+        for(Recipe item:parsedRecipes){
+            HashSet<String> ingredients = parseIngredients(item);
+            if(ingredients2RecipesMapping.containsKey(ingredients)){
+                HashSet<String> recipes = ingredients2RecipesMapping.get(ingredients);
+                recipes.add(item.getName());
+            } else{
+                HashSet<String> recipes = new HashSet<>();
+                recipes.add(item.getName());
+                ingredients2RecipesMapping.put(ingredients, recipes);
+            }
+        }
+
+        return ingredients2RecipesMapping;
+    }
+
     public static ArrayList<Recipe> parseFile(String filename){
         ArrayList<Recipe> allRecipes = new ArrayList<Recipe>();
         BufferedReader reader = null;
@@ -17,7 +39,6 @@ public class Parser {
             e.printStackTrace();
         }
 
-        System.out.println("file read.");
         String line = null;
         //for categorizing line inputs
         String type = "unknown";
@@ -58,9 +79,9 @@ public class Parser {
     }
 
 
-    public static ArrayList<String> parseIngredients(Recipe recipe){
+    public static HashSet<String> parseIngredients(Recipe recipe){
         ArrayList<String> unparsedIngredients = recipe.getIngredients();
-        ArrayList<String> parsedIngredients = new ArrayList<String>();
+        HashSet<String> parsedIngredients = new HashSet<String>();
         for(String line:unparsedIngredients){
             String[] splitLine = line.split(" ");
             if(splitLine.length < 3) continue;

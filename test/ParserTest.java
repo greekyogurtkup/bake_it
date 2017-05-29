@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by gyk on 5/23/2017.
@@ -11,8 +13,13 @@ public class ParserTest {
 
         for(Recipe item:recipeList){
             System.out.println(item.getName());
-            ArrayList<String> ingredients = Parser.parseIngredients(item);
-            item.printIngredients(true);
+            HashSet<String> ingredients = Parser.parseIngredients(item);
+//            item.printIngredients(true);
+        }
+
+        HashMap<HashSet<String>, HashSet<String>> mapping = Parser.parse("cakes.txt");
+        for(HashSet<String> ingredient:mapping.keySet()){
+            System.out.println(ingredient + " : " + mapping.get(ingredient));
         }
     }
 

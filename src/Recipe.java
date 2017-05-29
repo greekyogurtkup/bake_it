@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by gyk on 5/23/2017.
@@ -7,7 +8,7 @@ public class Recipe {
     String name;
     ArrayList<String> ingredients;
     ArrayList<String> instructions;
-    ArrayList<String> parsedIngredients;
+    HashSet<String> parsedIngredients;
     ArrayList<String> parsedInstructions;
 
     public Recipe(String name, ArrayList<String> ingredients, ArrayList<String> instructions){
@@ -48,7 +49,7 @@ public class Recipe {
         instructions.add(item);
     }
 
-    public void setParsedIngredients(ArrayList<String> parsedIngredients){
+    public void setParsedIngredients(HashSet<String> parsedIngredients){
         this.parsedIngredients = parsedIngredients;
     }
 
