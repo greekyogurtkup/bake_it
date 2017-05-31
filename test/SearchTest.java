@@ -56,7 +56,15 @@ public class SearchTest {
         HashSet<String> all = new HashSet<String>(Arrays.asList("seasons", "vegetables", "fruits", "produce"));
         assertEquals(all, Search.includes(empty, mapping));
 
-        //TODO: add more
+        HashSet<String> theStore = new HashSet<String>(Arrays.asList("tomato", "broccoli", "carrot", "lettuce", "onion", "spinach", "kale"));
+        assertEquals(empty, Search.includes(theStore, mapping));
+        HashSet<String> myFridge = new HashSet<String>(Arrays.asList("tomato", "broccoli", "carrot", "lettuce", "onion", "orange"));
+        assertEquals(empty, Search.includes(myFridge, mapping));
+
+        HashSet<String> tomato = new HashSet<String>(Arrays.asList("tomato"));
+        assertEquals(new HashSet<String>(Arrays.asList("produce", "fruits", "vegetables")), Search.includes(tomato, mapping));
+        HashSet<String> seasons = new HashSet<String>(Arrays.asList("fall", "winter"));
+        assertEquals(new HashSet<String>(Arrays.asList("seasons")), Search.includes(seasons, mapping));
 
         System.out.println("All include tests passed");
     }
@@ -67,7 +75,13 @@ public class SearchTest {
         HashSet<String> all = new HashSet<String>(Arrays.asList("seasons", "vegetables", "fruits", "produce"));
         assertEquals(all, Search.excludes(empty, mapping));
 
-        //TODO: add more
+        HashSet<String> eachOfEverything = new HashSet<String>(Arrays.asList("broccoli", "spring", "apple"));
+        assertEquals(empty, Search.excludes(eachOfEverything, mapping));
+
+        HashSet<String> tomato = new HashSet<String>(Arrays.asList("tomato"));
+        assertEquals(new HashSet<String>(Arrays.asList("seasons")), Search.excludes(tomato, mapping));
+        HashSet<String> kale = new HashSet<String>(Arrays.asList("kale"));
+        assertEquals(all, Search.excludes(kale, mapping));
 
         System.out.println("All exclude tests passed");
     }
