@@ -9,13 +9,6 @@ public class Recipe {
     ArrayList<String> ingredients;
     ArrayList<String> instructions;
     HashSet<String> parsedIngredients;
-    ArrayList<String> parsedInstructions;
-
-    public Recipe(String name, ArrayList<String> ingredients, ArrayList<String> instructions){
-        this.name = name;
-        this.ingredients = ingredients;
-        this.instructions = instructions;
-    }
 
     public Recipe(String name){
         this.name = name;
@@ -53,10 +46,6 @@ public class Recipe {
         this.parsedIngredients = parsedIngredients;
     }
 
-    public void setParsedInstructions(ArrayList<String> parsedInstructions){
-        this.parsedInstructions = parsedInstructions;
-    }
-
     public String all(){
         StringBuilder all = new StringBuilder();
         all.append("--------------\n");
@@ -86,7 +75,7 @@ public class Recipe {
         System.out.println("Ingredients:");
         printIngredients(parsed);
         System.out.println("Instructions:");
-        printInstructions(parsed);
+        printInstructions();
         System.out.println("---------");
     }
 
@@ -102,15 +91,9 @@ public class Recipe {
         }
     }
 
-    public void printInstructions(Boolean parsed){
-        if(parsed){
-            for(String item:parsedInstructions){
-                System.out.println("    " + item);
-            }
-        } else {
-            for (String item : instructions) {
-                System.out.println("    " + item);
-            }
+    public void printInstructions(){
+        for (String item : instructions) {
+            System.out.println("    " + item);
         }
     }
 }

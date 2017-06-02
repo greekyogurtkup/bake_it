@@ -39,7 +39,9 @@ public class Parser {
 
                 //TODO: ignore empty lines
                 if(line.equals("**************************")){
-                    allRecipes.add(recipe); //add recipe before moving on to next one
+                    if(!recipe.getName().equals("unknown")){
+                        allRecipes.add(recipe); //add recipe before moving on to next one
+                    }
 //                    recipe.print(false);
                     type = "name";
                 } else if(line.equals("-------------------------")){
