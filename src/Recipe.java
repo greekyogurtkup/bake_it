@@ -57,6 +57,30 @@ public class Recipe {
         this.parsedInstructions = parsedInstructions;
     }
 
+    public String all(){
+        StringBuilder all = new StringBuilder();
+        all.append("--------------\n");
+        all.append("Recipe name: ");
+        all.append(this.name);
+        all.append("\n");
+
+        all.append("Ingredients:\n");
+        for(String item:ingredients){
+            all.append("    ");
+            all.append(item);
+            all.append("\n");
+        }
+
+        all.append("Instructions:\n");
+        for(String item:instructions){
+            all.append("    ");
+            all.append(item);
+            all.append("\n");
+        }
+
+        return all.toString();
+    }
+
     public void print(Boolean parsed){
         System.out.println("Recipe name: " + this.name);
         System.out.println("Ingredients:");

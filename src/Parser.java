@@ -14,20 +14,7 @@ public class Parser {
         //Round 1: parse file into recipes
         ArrayList<Recipe> parsedRecipes = parseFile(filename);
         //Round 2: parse ingredients list
-        HashMap<HashSet<String>, HashSet<String>> ingredients2RecipesMapping = new HashMap<>();
-        for(Recipe item:parsedRecipes){
-            HashSet<String> ingredients = parseIngredients(item);
-            if(ingredients2RecipesMapping.containsKey(ingredients)){
-                HashSet<String> recipes = ingredients2RecipesMapping.get(ingredients);
-                recipes.add(item.getName());
-            } else{
-                HashSet<String> recipes = new HashSet<>();
-                recipes.add(item.getName());
-                ingredients2RecipesMapping.put(ingredients, recipes);
-            }
-        }
-
-        return ingredients2RecipesMapping;
+        return parseIngredients(parsedRecipes);
     }
 
     public static ArrayList<Recipe> parseFile(String filename){
@@ -78,8 +65,24 @@ public class Parser {
         return allRecipes;
     }
 
+    public static HashMap<HashSet<String>, HashSet<String>> parseIngredients(ArrayList<Recipe> parsedRecipes){
+        HashMap<HashSet<String>, HashSet<String>> ingredients2RecipesMapping = new HashMap<>();
+        for(Recipe item:parsedRecipes){
+            HashSet<String> ingredients = parseIngredientsHelper(item);
+            if(ingredients2RecipesMapping.containsKey(ingredients)){
+                HashSet<String> recipes = ingredients2RecipesMapping.get(ingredients);
+                recipes.add(item.getName());
+            } else{
+                HashSet<String> recipes = new HashSet<>();
+                recipes.add(item.getName());
+                ingredients2RecipesMapping.put(ingredients, recipes);
+            }
+        }
 
-    public static HashSet<String> parseIngredients(Recipe recipe){
+        return ingredients2RecipesMapping;
+    }
+
+    public static HashSet<String> parseIngredientsHelper(Recipe recipe){
         ArrayList<String> unparsedIngredients = recipe.getIngredients();
         HashSet<String> parsedIngredients = new HashSet<String>();
         for(String line:unparsedIngredients){
